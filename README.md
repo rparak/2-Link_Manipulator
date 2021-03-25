@@ -1,1 +1,1 @@
-# 2-Link_Manipulator
+# Two-Link Manipulato: 2DOF ABB IRB 910SC (SCARA)
