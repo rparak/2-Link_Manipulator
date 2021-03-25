@@ -61,6 +61,9 @@ Text
 
 ## Result:
 
+<p align="center">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/videos/1.mp4 width="400" height="325">
+</p>
 
 ## Contact Info:
 Roman.Parak@outlook.com
