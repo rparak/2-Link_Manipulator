@@ -61,9 +61,7 @@ Text
 
 ## Result:
 
-<figure class="video_container">
-  <iframe src="https://github.com/rparak/2-Link_Manipulator/blob/main/videos/1.mp4" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+<img src="https://github.com/rparak/2-Link_Manipulator/blob/main/videos/1.mp4" alt="Databay showcase gif" title="Databay showcase gif" width="500"/>
 
 ## Contact Info:
 Roman.Parak@outlook.com
