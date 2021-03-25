@@ -2,7 +2,7 @@
 
 ## Requirements:
 
-**Software:**
+**Programming Language:**
 
 ```bash
 Python
