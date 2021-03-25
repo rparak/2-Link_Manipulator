@@ -24,9 +24,12 @@ Text
 
 ## Project Hierarchy:
 
-**Repositary [//]:**
+**Repositary [/2-Link_Manipulator/]:**
 ```bash
-[ ] //
+[ Brief presentation of Kinematics, Dynamics, etc. (2DOF Example) ] /PDF/
+[ A simple example of implementing euler-lagrange dynamics        ] /Script/Dynamics/
+[ Main Script (Test) + Manipulator Control Class                  ] /Script/Manipulator/
+[ IRB 910SC Product Specification                                 ] /Product_specification/
 ```
 
 ## Application:
