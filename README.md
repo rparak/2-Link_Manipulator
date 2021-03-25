@@ -65,6 +65,18 @@ Text
  <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/videos/1.gif width="800" height="500">
 </p>
 
+<p align="center">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/videos/2.gif width="800" height="500">
+</p>
+
+<p align="center">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/videos/3.gif width="800" height="500">
+</p>
+
+<p align="center">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/videos/4.gif width="800" height="500">
+</p>
+
 ## Contact Info:
 Roman.Parak@outlook.com
 
