@@ -61,7 +61,7 @@ Text
 
 ## Result:
 
-<video src=https://github.com/rparak/2-Link_Manipulator/blob/main/videos/1.mp4 width="320" height="200" controls preload></video>
+<video src="https://github.com/rparak/2-Link_Manipulator/blob/main/videos/1.mp4" width="320" height="200" controls preload></video>
 
 ## Contact Info:
 Roman.Parak@outlook.com
