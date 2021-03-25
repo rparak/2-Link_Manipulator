@@ -3,8 +3,15 @@
 ## Requirements:
 
 **Software:**
-```bash
 
+```bash
+Python
+```
+
+**Import Libraries:**
+```bash
+Manipulator Control: Matplotlib, NumPy
+Dynamics: Matplotlib, NumPy, SciPy
 ```
 
 ## Project Description:
