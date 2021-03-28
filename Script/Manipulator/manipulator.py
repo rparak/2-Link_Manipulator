@@ -79,7 +79,7 @@ class Control(object):
         )
         # << PRIVATE >> #
         # Transformation matrix for FK calculation [4x4]
-        self.__Tn_theta   = np.zeros((4, 4), dtype=np.float)
+        self.__Tn_theta = np.matrix(np.identity(4))
         # Auxiliary variables -> Target (Translation, Joint/Rotation) for calculation FK/IK
         self.__p_target     = None
         self.__theta_target = np.zeros(2)
