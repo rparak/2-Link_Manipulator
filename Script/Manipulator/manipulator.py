@@ -121,10 +121,12 @@ class Control(object):
         """
         Description: 
             Slower calculation of Forward Kinematics using the Denavit-Hartenberg parameter table.
+            
         Args:
             (1) index [INT]: Index of episode (Number of episodes is depends on number of joints)
+            
         Returns:
-            (2) Ai_aux [Float Matrix 4x4]: Transformation Matrix in the current episode
+            (2) parameter{1} [Float Matrix 4x4]: Transformation Matrix in the current episode
 
         Examples:
             self.forward_kinematics(0, [0.0, 45.0])
@@ -182,6 +184,7 @@ class Control(object):
             Forward kinematics refers to the use of the kinematic equations of a robot to compute 
             the position of the end-effector from specified values for the joint parameters.
             Joint Angles (Theta_1, Theta_2) <-> Position of End-Effector (x, y)
+            
         Args:
             (1) calc_type [INT]: Select the type of calculation (0: DH Table, 1: Fast).
             (2) theta [Float Array]: Joint angle of target in degrees.
@@ -216,6 +219,7 @@ class Control(object):
             Inverse kinematics is the mathematical process of calculating the variable 
             joint parameters needed to place the end of a kinematic chain.
             Position of End-Effector (x, y) <-> Joint Angles (Theta_1, Theta_2)
+            
         Args:
             (1) p [Float Array]: Position (x, y) of the target in meters.
             (2) cfg [INT]: Robot configuration (IK Multiple Solutions).
@@ -279,6 +283,7 @@ class Control(object):
         Description:
             The Jacobian matrix method is an incremental method of inverse kinematics 
             (the motion required to move a limb to a certain position may be performed over several frames). 
+            
         Args:
             (1) p_target [Float Array]: Position (x, y) of the target in meters.
             (2) theta [Float Array]: Joint angle of target in radians.
@@ -400,7 +405,7 @@ class Control(object):
         Args:
             (1) trajectory_str [Structure Type Array]: Structure of the trajectory points.
 
-        Return:
+        Returns:
             (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of trajectory values (x, y).
             (3) parameter{3} [INT]: Results of trajectory values (Inverse Kinematics config).
         
@@ -463,7 +468,7 @@ class Control(object):
         Args:
             (1) trajectory_str [Structure Type Array]: Structure of the trajectory points.
 
-        Return:
+        Returns:
             (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of trajectory values (x, y).
             (3) parameter{3} [INT Array]: Results of trajectory values (Inverse Kinematics config).
         """
@@ -513,8 +518,8 @@ class Control(object):
         Args:
             (1) kinematics_str [Structure Type]: Structure of the trajectory point.
 
-        Return:
-            (1) param_1 [Bool]: The point is reachable or not.
+        Returns:
+            (1) parameter{1} [Bool]: The point is reachable or not.
         """
 
         if kinematics_str['calc_type'] == 'IK': 
@@ -574,8 +579,8 @@ class Control(object):
         Args:
             (1) structure [Structure Type]: Different types of structures -> x = {'calc_type': 'IK', 'p': [0.20, 0.60], 'cfg': 0}
 
-        Return:
-            (1) param_1 [String Array]: Return items from the structure -> item = ['calc_type', 'p', 'cfg'] 
+        Returns:
+            (1) parameter{1} [String Array]: Return items from the structure -> item = ['calc_type', 'p', 'cfg'] 
 
         Example:
            self.__get_item_str(x) 
@@ -595,8 +600,8 @@ class Control(object):
         Args:
             (1) kinematics_str [Structure Type Array]: Structure of the trajectory points.
         
-        Return:
-            (1) param_{1,2} [Bool Array]: 1 - Reachable points error (True -> NOK, False -> OK), 2 - Index
+        Returns:
+            (1) parameter{1}, parameter{2} [Bool Array]: 1 - Reachable points error (True -> NOK, False -> OK), 2 - Index
         """
 
         err_p = [[], []]
@@ -620,7 +625,7 @@ class Control(object):
             (2) fk_param [INT, Float Array]: Dynamic parameter for points from the FK calculation and the index of the current parameter.
             (3) increment [INT]: Number of increments and direction.
 
-        Return:
+        Returns:
             (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of path values.
         """
 
@@ -717,8 +722,8 @@ class Control(object):
         Description: 
             Initialize each of the animated objects that will move in the animation.
 
-        Return:
-            (1) param_1 [Float Array]: Arrays of individual objects 
+        Returns:
+            (1) parameter{1} [Float Array]: Arrays of individual objects 
         """
 
         # Generation data for animation
@@ -740,8 +745,8 @@ class Control(object):
         Args:
             (1) i [INT]: Iteration of the trajecotry.
 
-        Return:
-            (1) param_1 [Float Array]: Arrays of individual objects 
+        Returns:
+            (1) parameter{1} [Float Array]: Arrays of individual objects 
         """
 
         self.__line[0].set_data([0.0, self.__animation_dMat[i][0]], [0.0, self.__animation_dMat[i][1]])
