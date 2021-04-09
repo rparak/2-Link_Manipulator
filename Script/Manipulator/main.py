@@ -72,6 +72,7 @@ def generate_circle(centroid, radius):
     Args:
         (1) centroid [Float Array]: Centroid of the Circle (x, y).
         (1) radius [Float]: Radius of the Circle (r).
+        
     Returns:
         (1 - 2) parameter{1}, parameter{2} [Float Array]: Results of path values.
 
