@@ -80,9 +80,10 @@ class Dynamics_Ctrl(object):
         Args:
             (1) input_p [Float Array]: Initial position of the Robot (2 Joints) -> Theta_{1, 2} and 1_Derivation Theta_{1,2}
             (2) time [Float]: Derivation of the Time.
+            
         Returns:
-            (1): param 1, param 3 [Float]: 1_Derivation Theta_{1,2}
-            (2): param 2, param 4 [Float]: 2_Derivation Theta_{1,2}
+            (1) parameter{1}, parameter{3} [Float]: 1_Derivation Theta_{1,2}
+            (2) parameter{2}, parameter{4} [Float]: 2_Derivation Theta_{1,2}
         """
 
         theta_1  = input_p[0]; theta_2  = input_p[2]
@@ -119,6 +120,7 @@ class Dynamics_Ctrl(object):
         """
         Description:
             Function for calculating and displaying the results of Lagrangian Dynamics Calculation.
+            
         Args:
             (1) input_p [Float Array]: Initial position of the Robot (2 Joints) -> Theta_{1, 2} and 1_Derivation Theta_{1,2}
         """
