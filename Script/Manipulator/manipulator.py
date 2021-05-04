@@ -510,7 +510,7 @@ class Control(object):
 
             return False
 
-    def check_target(self, kinematics_str):
+    def check_target_err(self, kinematics_str):
         """
         Description:
             Function to check whether the point is reachable or not. The function allows to check the input structure for Cartesian and Joint parameters.
@@ -519,7 +519,7 @@ class Control(object):
             (1) kinematics_str [Structure Type]: Structure of the trajectory point.
 
         Returns:
-            (1) parameter{1} [Bool]: The point is reachable or not.
+            (1) parameter{1} [Bool]: Reachable points error (True -> NOK, False -> OK).
         """
 
         if kinematics_str['calc_type'] == 'IK': 
@@ -610,7 +610,7 @@ class Control(object):
             aux_item = self.__get_item_str(kinematics_str[i])
             aux_kinematics_str = {aux_item[0]: kinematics_str[i][aux_item[0]], aux_item[1]: kinematics_str[i][aux_item[1]], aux_item[2]: kinematics_str[i][aux_item[2]]}
 
-            err_p[0].append(self.check_target(aux_kinematics_str))
+            err_p[0].append(self.check_target_err(aux_kinematics_str))
             err_p[1].append(i)
 
         return err_p
