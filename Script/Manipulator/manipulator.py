@@ -652,7 +652,7 @@ class Control(object):
             (1) display_type [INT]: Work envelope visualization options (0: Line, 1: Points).
 
         Examples:
-            self._display_workspace(0)
+            self.__display_workspace(0)
         """
 
         # Generate linearly spaced vectors for the each of joints.
