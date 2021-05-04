@@ -371,7 +371,7 @@ class Control(object):
                 theta_actual[0] = theta_actual[0] + d_theta[0,0]*0.1
                 theta_actual[1] = theta_actual[1] + d_theta[1,0]*0.1
 
-                if abs(d_theta[0,0]*0.1) > self.ax_wr[0][1] * (np.pi/180) or abs(d_theta[1,0]*0.1) > self.ax_wr[1][1] * (np.pi/180):
+                if abs(d_theta[0,0]*0.1) > self.ax_wr[1] or abs(d_theta[1,0]*0.1) > self.ax_wr[3]:
                     # Theta new is out of range -> reset the calculation in the next step
                     calc_err = True
                 else:
