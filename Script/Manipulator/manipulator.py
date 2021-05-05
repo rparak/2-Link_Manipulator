@@ -128,8 +128,6 @@ class Control(object):
         Returns:
             (2) parameter{1} [Float Matrix 4x4]: Transformation Matrix in the current episode
 
-        Examples:
-            self.forward_kinematics(0, [0.0, 45.0])
         """
 
         # Reset/Initialize matrix
@@ -276,7 +274,7 @@ class Control(object):
         self.theta = theta_aux
 
         # Calculate the forward kinematics from the results of the inverse kinematics.
-        self.forward_kinematics(1, self.theta, False)
+        self.forward_kinematics(1, self.theta, 'rad')
 
     def inverse_kinematics_jacobian(self, p_target, theta, accuracy, num_of_iter):
         """
@@ -298,7 +296,7 @@ class Control(object):
         theta_actual = [theta[0] + 0.01, theta[0] + 0.01]
 
         # Calculation of FK to find the position p (x, y) for actual theta
-        self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], False)
+        self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], 'rad')
 
         self.__p_target = np.zeros(2)
         self.__p_target[0] = p_target[0]
@@ -326,7 +324,7 @@ class Control(object):
         calc_err = False
 
         for i in range(num_of_iter):
-            self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], False)
+            self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], 'rad')
 
             x_traj.append(self.p[0])
             y_traj.append(self.p[1])
@@ -448,7 +446,7 @@ class Control(object):
             target_theta_dt = np.linspace(start_theta[1], target_theta[1], trajectory_str['step'])
 
             for i in range(len(start_theta_dt)):
-                self.forward_kinematics(1, [start_theta_dt[i], target_theta_dt[i]], False)
+                self.forward_kinematics(1, [start_theta_dt[i], target_theta_dt[i]], 'rad')
                 x.append(self.p[0])
                 y.append(self.p[1])
             
@@ -568,7 +566,7 @@ class Control(object):
 
             self.__p_target = np.zeros(2)
 
-        self.forward_kinematics(1, [0.0, 0.0], False)
+        self.forward_kinematics(1, [0.0, 0.0], 'rad')
 
     @staticmethod
     def __get_item_str(structure):
@@ -634,9 +632,9 @@ class Control(object):
 
         for i in range(int(limit[0] * (180/np.pi)), int(limit[1] * (180/np.pi)), increment):
             if fk_param[0] == 0:
-                self.forward_kinematics(1, [fk_param[1], i * (np.pi/180)], False)
+                self.forward_kinematics(1, [fk_param[1], i * (np.pi/180)], 'rad')
             elif fk_param[0] == 1:
-                self.forward_kinematics(1, [i * (np.pi/180), fk_param[1]], False)
+                self.forward_kinematics(1, [i * (np.pi/180), fk_param[1]], 'rad')
 
             x.append(self.p[0])
             y.append(self.p[1])
