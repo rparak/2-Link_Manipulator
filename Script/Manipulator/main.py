@@ -129,14 +129,14 @@ def main():
             Test Results of the kinematics.
 
         Forward Kinematics:
-            x.forward_kinematics(1, [0.0, 0.0], True)
+            x.forward_kinematics(1, [0.0, 0.0], 'rad')
         Inverse Kinematics:
             (a) Default Calculation method
                 x.inverse_kinematics([0.35, 0.15], 1)
             (b) Jacobian Calculation method
                 x.inverse_kinematics_jacobian([0.35, 0.15], [0.0, 0.0], 0.0001, 10000)
         Both kinematics to each other:
-            x.forward_kinematics(0, [0.0, 45.0], True)
+            x.forward_kinematics(0, [0.0, 45.0], 'deg')
             x.inverse_kinematics(x.p, 1)
     """
 
