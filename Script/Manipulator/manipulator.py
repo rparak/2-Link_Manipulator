@@ -178,7 +178,7 @@ class Control(object):
         for i in range(len(self.p)):
             self.p[i] = round(self.__Tn_theta[i, 3], self.__rounding_index)
 
-    def forward_kinematics(self, calc_type, theta, degree_repr):
+    def forward_kinematics(self, calc_type, theta, angle_repr):
         """
         Description:
             Forward kinematics refers to the use of the kinematic equations of a robot to compute 
@@ -187,19 +187,19 @@ class Control(object):
             
         Args:
             (1) calc_type [INT]: Select the type of calculation (0: DH Table, 1: Fast).
-            (2) theta [Float Array]: Joint angle of target in degrees.
-            (3) degree_repr [BOOL]: Representation of the input joint angle (Degree).
+            (3) theta [Float Array]: Joint angle of target in degrees or radians, depends on the variable (angle_repr).
+            (4) angle_repr [BOOL]: Representation of the input joint angle ('deg', 'rad').
 
         Examples:
-            self.forward_kinematics(0, [0.0, 45.0], True) or self.forward_kinematics(0, [0.0, 0.785398], False)
+            self.forward_kinematics_test(0, 'default', [0.0, 0.0], 'rad')
         """
         self.__theta_target = np.zeros(2)
         self.__theta_target[0] = theta[0]
         self.__theta_target[1] = theta[1]
 
-        if degree_repr == True:
+        if angle_repr == 'deg':
             self.rDH_param.theta = [x * (np.pi/180) for x in self.__theta_target]
-        else:
+        elif angle_repr == 'rad':
             self.rDH_param.theta = self.__theta_target
 
         if calc_type == 0:
