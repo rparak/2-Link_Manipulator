@@ -191,7 +191,7 @@ class Control(object):
             (3) degree_repr [BOOL]: Representation of the input joint angle (Degree).
 
         Examples:
-            self.forward_kinematics(0, [0.0, 45.0])
+            self.forward_kinematics(0, [0.0, 45.0], True) or self.forward_kinematics(0, [0.0, 0.785398], False)
         """
         self.__theta_target = np.zeros(2)
         self.__theta_target[0] = theta[0]
