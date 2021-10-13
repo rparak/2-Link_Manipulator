@@ -102,5 +102,18 @@ The project was realized at Institute of Automation and Computer Science, Brno U
 ## Contact Info:
 Roman.Parak@outlook.com
 
+## Citation (BibTex)
+
+```bash
+@misc{RomanParak_2LArm,
+  author = {Roman Parak},
+  title = {Simple control of a two-link robotic arm implemented in Python},
+  year = {2021},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/rparak/Bioloid-Dynamixel-AX12A}}
+}
+```
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
