@@ -16,7 +16,7 @@ Dynamics: Matplotlib, NumPy, SciPy
 
 ## Project Description:
 
-The project is focused on the demonstration of a simple control by a robotic arm Two-Link (2 degrees of freedom), which is implemented in Python using animation. The main parameters of the robot (length of arms, working range, etc.) are from the ABB IRB 910SC robot (SCARA), but only for 2-DOF control.
+The project is focused on the Demonstration of simple control of a two-link robotic arm (2 degrees of freedom) implemented in Python using animation. The main parameters of the robot (length of arms, working range, etc.) are from the ABB IRB 910SC robot (SCARA), but only for 2-DOF control.
 
 The main idea of the project is adaptability to future automation technologies in various fields and improving literacy (understanding kinematics, dynamics, motion planning, etc., in the field of robotics). The project was created to improve the [VRM (Programming for Robots and Manipulators)](https://github.com/rparak/Programming-for-robots-and-manipulators-VRM) university course.
 
