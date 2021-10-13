@@ -1,4 +1,4 @@
-# Two-Link Manipulato: 2DOF ABB IRB 910SC (SCARA)
+# Two-Link Manipulator: 2DOF ABB IRB 910SC (SCARA)
 
 ## Requirements:
 
