@@ -28,7 +28,7 @@ Main functions of the robotic arm (2-DOF):
 - Animation of the resulting trajectory
 - Check of reachable points, etc.
 
-The project was realized at Institute of Automation and Computer Science, Brno University of Technology, Faculty of Mechanical Engineering (NETME Centre - Cybernetics and Robotics Division).
+The project was realized at the Institute of Automation and Computer Science, Brno University of Technology, Faculty of Mechanical Engineering (NETME Centre - Cybernetics and Robotics Division).
 
 <p align="center">
  <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/images/2.png width="800" height="500">
