@@ -88,6 +88,16 @@ The project was realized at the Institute of Automation and Computer Science, Br
  <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/GIF/Default_3_Smooth.gif width="800" height="500">
 </p>
 
+<p align="center">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/GIF/Default_4.gif width="800" height="500">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/GIF/Default_4_Smooth.gif width="800" height="500">
+</p>
+
+<p align="center">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/GIF/Circle.gif width="800" height="500">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/GIF/Rectangle.gif width="800" height="500">
+</p>
+
 ## Contact Info:
 Roman.Parak@outlook.com
 
