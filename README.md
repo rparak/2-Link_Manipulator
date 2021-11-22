@@ -49,8 +49,8 @@ The project was realized at the Institute of Automation and Computer Science, Br
 **Work Envelop:**
 
 <p align="center">
- <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/images/8.png width="400" height="325">
- <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/images/9.png width="400" height="325">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/images/8.png width="800" height="500">
+ <img src=https://github.com/rparak/2-Link_Manipulator/blob/main/images/9.png width="800" height="500">
 </p>
 
 **Linear and Joint Interpolation:**
