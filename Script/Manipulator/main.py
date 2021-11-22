@@ -154,10 +154,10 @@ def main():
         x, y = generate_circle([0.25, -0.25], 0.1)
 
         # Initial (Start) Position
-        trajectory_str.append({'interpolation': 'joint', 'start_p': [0.50, 0.0], 'target_p': [x[0], y[0]], 'step': 100, 'cfg': 1})
+        trajectory_str.append({'interpolation': 'joint', 'start_p': [0.50, 0.0], 'target_p': [x[0], y[0]], 'step': 25, 'cfg': 1})
 
         for i in range(len(x) - 1):
-            trajectory_str.append({'interpolation': 'linear', 'start_p': [x[i], y[i]], 'target_p': [x[i + 1], y[i + 1]], 'step': 10, 'cfg': 1})
+            trajectory_str.append({'interpolation': 'linear', 'start_p': [x[i], y[i]], 'target_p': [x[i + 1], y[i + 1]], 'step': 5, 'cfg': 1})
 
     elif test_trajectory == 'Rectangle':
         # Generating a trajectory structure for a rectangle
@@ -168,10 +168,10 @@ def main():
         x, y = generate_rectangle([-0.25, 0.25], [0.15, 0.15], 0.0)
 
         # Initial (Start) Position
-        trajectory_str.append({'interpolation': 'joint', 'start_p': [0.50, 0.0], 'target_p': [x[0], y[0]], 'step': 100, 'cfg': 0})
+        trajectory_str.append({'interpolation': 'joint', 'start_p': [0.50, 0.0], 'target_p': [x[0], y[0]], 'step': 50, 'cfg': 0})
 
         for i in range(len(x) - 1):
-            trajectory_str.append({'interpolation': 'linear', 'start_p': [x[i], y[i]], 'target_p': [x[i + 1], y[i + 1]], 'step': 50, 'cfg': 0})
+            trajectory_str.append({'interpolation': 'linear', 'start_p': [x[i], y[i]], 'target_p': [x[i + 1], y[i + 1]], 'step': 25, 'cfg': 0})
 
     elif test_trajectory == 'Default_1':
         # Initial (Start) Position
@@ -183,8 +183,8 @@ def main():
 
     elif test_trajectory == 'Default_3':
         # Generating a trajectory structure between three points
-        trajectory_str.append({'interpolation': 'linear', 'start_p': [0.30, 0.0], 'target_p': [0.40, 0.30], 'step': 50, 'cfg': 1})
-        trajectory_str.append({'interpolation': 'linear', 'start_p': [0.40, 0.30], 'target_p': [0.20, 0.40], 'step': 50, 'cfg': 1})
+        trajectory_str.append({'interpolation': 'linear', 'start_p': [0.30, 0.0], 'target_p': [0.40, 0.30], 'step': 25, 'cfg': 1})
+        trajectory_str.append({'interpolation': 'linear', 'start_p': [0.40, 0.30], 'target_p': [0.20, 0.40], 'step': 25, 'cfg': 1})
 
     elif test_trajectory == 'Default_4':
         # Generating a trajectory structure between four points
@@ -211,7 +211,7 @@ def main():
     tP_err = scara.check_trajectory(check_cartesianTrajectory_str)
 
     # Smoothing the trajecotory using Bézier Curve (3 points -> Quadratic, 4 -> Points Cubic)
-    tP_smooth = True
+    tP_smooth = False
 
     if tP_smooth == True:
         smooth_trajectory = [[], [], []]
@@ -236,9 +236,11 @@ def main():
         scara.init_animation()
     else:
         # Call the animator for the SCARA Robotics Arm (if the results of the solution are error-free).
-        animator = animation.FuncAnimation(scara.figure, scara.start_animation, init_func=scara.init_animation, frames=len(scara.trajectory[0]), interval=25, blit=True, repeat=False)
+        animator = animation.FuncAnimation(scara.figure, scara.start_animation, init_func=scara.init_animation, frames=len(scara.trajectory[0]), interval=2, blit=True, repeat=False)
+        # Save Animation 
+        animator.save(f'{test_trajectory}.gif', fps=30, bitrate=1000)
 
-    scara.plt.show()
+    #scara.plt.show()
 
 if __name__ == '__main__':
     sys.exit(main())
