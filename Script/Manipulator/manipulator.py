@@ -61,7 +61,7 @@ class Control(object):
         # Joints Rotation -> theta(theta_1, theta_2)
         self.theta = np.zeros(2)
         # Jacobian Matrix (For the Jacobian Inverse Kinematics Calculation)
-        self.jacobian_matrix = np.matrix(np.identity(2))
+        self.jacobian_matrix = np.array(np.identity(2))
         # Control of the Visualization
         self.plt   = plt
         self.figure = self.plt.figure(num=None, figsize=(25, 17.5), dpi=80, facecolor='w', edgecolor='k')
@@ -79,7 +79,7 @@ class Control(object):
         )
         # << PRIVATE >> #
         # Transformation matrix for FK calculation [4x4]
-        self.__Tn_theta = np.matrix(np.identity(4))
+        self.__Tn_theta = np.array(np.identity(4))
         # Auxiliary variables -> Target (Translation, Joint/Rotation) for calculation FK/IK
         self.__p_target     = None
         self.__theta_target = np.zeros(2)
@@ -131,7 +131,7 @@ class Control(object):
         """
 
         # Reset/Initialize matrix
-        Ai_aux = np.matrix(np.identity(4), copy=False)
+        Ai_aux = np.array(np.identity(4), copy=False)
         
         # << Calulation First Row >>
         # Rotational Part
@@ -209,7 +209,7 @@ class Control(object):
             self.__fast_calc_fk()
 
         # After completing the calculation, reset the transformation matrix.
-        self.__Tn_theta = np.matrix(np.identity(4))
+        self.__Tn_theta = np.array(np.identity(4))
 
     def inverse_kinematics(self, p, cfg):
         """
@@ -275,13 +275,12 @@ class Control(object):
 
         # Calculate the forward kinematics from the results of the inverse kinematics.
         self.forward_kinematics(1, self.theta, 'rad')
-
-    def inverse_kinematics_jacobian(self, p_target, theta, accuracy, num_of_iter):
+        
+def inverse_kinematics_jacobian(self, p_target, theta, accuracy, num_of_iter):
         """
         Description:
             The Jacobian matrix method is an incremental method of inverse kinematics 
             (the motion required to move a limb to a certain position may be performed over several frames). 
-            
         Args:
             (1) p_target [Float Array]: Position (x, y) of the target in meters.
             (2) theta [Float Array]: Joint angle of target in radians.
@@ -292,93 +291,47 @@ class Control(object):
             self.inverse_kinematics_jacobian([0.35, 0.15], [0.0, 0.0], 0.0001, 10000)
         """
 
-        # Add a small value to each part of theta (Problem with 0.0 value)
-        theta_actual = [theta[0] + 0.01, theta[0] + 0.01]
+        theta_actual = np.array(theta)
+        self.__p_target = np.array(p_target)
 
-        # Calculation of FK to find the position p (x, y) for actual theta
-        self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], 'rad')
-
-        self.__p_target = np.zeros(2)
-        self.__p_target[0] = p_target[0]
-        self.__p_target[1] = p_target[1]
-
-        p_start = np.zeros(2)
-        p_start = [self.p[0], self.p[1]]
-
-        # Check and change the math sign (positive/negative value of the position {initial, target})
-        if p_start[0] > self.__p_target[0]:
-            theta_actual[0] *= (-1)
-        else:
-            theta_actual[0] *= (1)
-
-        if p_start[1] > self.__p_target[1]:
-            theta_actual[1] *= (-1)
-        else:
-            theta_actual[1] *= (1)
-        
-        # The resulting trajectory of the calculation IK{Jacobian}
-        x_traj = []
-        y_traj = []
-
-        # Variable for the calculation error (theta new is out of range)
-        calc_err = False
-
+        theta_tmp = np.array([theta[0], theta[0]])
         for i in range(num_of_iter):
-            self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], 'rad')
+            # Get Jacobian Matrix from actual theta.
+            self.__calc_jacobian_matrix([theta_actual[0], theta_actual[1]])
 
-            x_traj.append(self.p[0])
-            y_traj.append(self.p[1])
+            # Calculation of position error (e_p).
+            e_p = np.array((self.__p_target - self.p))
 
-            x_actual = abs(self.__p_target[0] - self.p[0])
-            y_actual = abs(self.__p_target[1] - self.p[1])
-            
-            if x_actual < accuracy and y_actual < accuracy:
+            #  Calculation of Jac. Matrix determinant (for finding singularities).
+            if np.linalg.det(self.jacobian_matrix) != 0:
+                # Calculation of theta using inverse Jacobian method: 
+                #   theta = inv(J) @ e
+                theta_actual += np.linalg.inv(self.jacobian_matrix) @ e_p
+            else:
+                # Calculation of theta using pseudoinverse Jacobian method: 
+                #   theta = pinv(J) @ e
+                theta_actual += np.linalg.pinv(self.jacobian_matrix) @ e_p
+
+            # Get actual position of the end-effector from the actual theta (absolute position of the joint).
+            self.forward_kinematics(0, [theta_actual[0], theta_actual[1]], False)
+
+            if np.linalg.norm(self.__p_target - self.p) < accuracy:
                 print('[INFO] Result found in iteration no. ', i)
                 print('[INFO] Target Position (End-Effector):')
                 print('[INFO] p_t  = [x: %f, y: %f]' % (self.__p_target[0], self.__p_target[1]))
                 print('[INFO] Actual Position (End-Effector):')
                 print('[INFO] p_ee = [x: %f, y: %f]' % (self.p[0], self.p[1]))
                 print('[INFO] IK Jacobian (Accuracy Error):')
-                print('[INFO] Euclidean Distance: %f' % np.linalg.norm(self.p - self.__p_target))
+                print('[INFO] Euclidean Distance: %f' % np.linalg.norm(self.__p_target - self.p))
                 break
 
-            # Get Jacobian Matrix from actual theta
-            self.__calc_jacobian_matrix([theta_actual[0], theta_actual[1]])
-
-            # Calculation of Jac. Matrix determinant (for finding singularities)
-            jacobian_Det = np.linalg.det(self.jacobian_matrix)
-
-            # Singular Jacobian -> det(J) = 0 
-            if jacobian_Det != 0:
-                # Calculation of Inverse Jacobian
-                jacobian_Inv = np.linalg.inv(self.jacobian_matrix)
-
-                # Derivation of the theta -> dTheta = J^(-1)*v, where v is derivation of the position (x_actual, y_actual)
-                d_theta = np.dot(jacobian_Inv, np.array([[x_actual], [y_actual]]))
-
-                if calc_err == True:
-                    theta_actual = [theta[0] + 0.01, theta[0] + 0.01]
-
-                    x_traj.clear()
-                    y_traj.clear()
-
-                    x_traj.append(p_start[0])
-                    y_traj.append(p_start[1])
-
-                # Add theta derivation to the actual theta value (new position of the trajectory)
-                theta_actual[0] = theta_actual[0] + d_theta[0,0]*0.1
-                theta_actual[1] = theta_actual[1] + d_theta[1,0]*0.1
-
-                if abs(d_theta[0,0]*0.1) > self.ax_wr[1] or abs(d_theta[1,0]*0.1) > self.ax_wr[3]:
-                    # Theta new is out of range -> reset the calculation in the next step
-                    calc_err = True
+            # Check that the actual absolute position of the joint is out of limit.
+            for i in range(2):
+                if theta_actual[i] < self.ax_wr[i][0] * (np.pi/180) or theta_actual[i] > self.ax_wr[i][1] * (np.pi/180):
+                    theta_actual[i] = theta_tmp[i]
                 else:
-                    calc_err = False
-            else:
-                print('[INFO] Singular Jacobian (Problem):')
-                print('[INFO] Jacobian Determinant Result: %f' % jacobian_Det)
-                break
-            
+                    theta_tmp[i] = theta_actual[i]
+
         self.theta = theta_actual
 
     def __calc_jacobian_matrix(self, theta):
