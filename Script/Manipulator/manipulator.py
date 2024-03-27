@@ -326,11 +326,11 @@ class Control(object):
                     break
 
                 # Check that the actual absolute position of the joint is out of limit.
-                for i in range(2):
-                    if theta_actual[i] < self.ax_wr[i][0] * (np.pi/180) or theta_actual[i] > self.ax_wr[i][1] * (np.pi/180):
-                        theta_actual[i] = theta_tmp[i]
+                for j in range(2):
+                    if theta_actual[j] < self.ax_wr[j][0] * (np.pi/180) or theta_actual[j] > self.ax_wr[j][1] * (np.pi/180):
+                        theta_actual[j] = theta_tmp[j]
                     else:
-                        theta_tmp[i] = theta_actual[i]
+                        theta_tmp[j] = theta_actual[j]
 
             self.theta = theta_actual
 
